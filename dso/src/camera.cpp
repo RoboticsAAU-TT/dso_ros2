@@ -59,7 +59,7 @@ int main(int argc, char ** argv)
   custom_camera_qos_profile.history = history_policy;
 
   auto pub = node->create_publisher<sensor_msgs::msg::Image>(
-      topic, custom_camera_qos_profile);
+      topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(custom_camera_qos_profile)));
 
   bool is_flipped = false;
 
@@ -74,7 +74,7 @@ int main(int argc, char ** argv)
   custom_flip_qos_profile.depth = 10;
 
   auto sub = node->create_subscription<std_msgs::msg::Bool>(
-      "flip_image", callback, custom_flip_qos_profile);
+      "flip_image", rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(custom_flip_qos_profile)), callback);
 
   rclcpp::WallRate loop_rate(freq);
 
@@ -96,7 +96,7 @@ int main(int argc, char ** argv)
         cv::flip(frame, flipped_frame, 1);
         frame_to_message(flipped_frame, i, msg);
       }
-      pub->publish(msg);
+      pub->publish(*msg);
       i++;
     }
 

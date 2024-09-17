@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(dso)
+project(dso_ros2)
 
 # Default to C99
 if(NOT CMAKE_C_STANDARD)
@@ -16,7 +16,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 set(CMAKE_CXX_FLAGS
-   "${SSE_FLAGS} -O2 -g -std=c++0x -march=native -fno-omit-frame-pointer -lboost_thread"
+   "${SSE_FLAGS} -O2 -g -std=c++0x -march=native -fno-omit-frame-pointer"
 )
 
 # find dependencies
@@ -25,7 +25,7 @@ find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(std_msgs REQUIRED)
 find_package(OpenCV REQUIRED)
-find_package(Boost REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system thread)
 find_package(Eigen3 REQUIRED)
 find_package(Pangolin REQUIRED)
 
@@ -34,7 +34,7 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-set(DSO_PATH "/home/goktug/libraries/dso")
+set(DSO_PATH "${CMAKE_SOURCE_DIR}/../../../tools/dso")
 find_library(DSO_LIBRARY dso ${DSO_PATH}/build/lib)
 
 add_executable(dso_ros src/dso_ros.cpp)
@@ -53,7 +53,7 @@ ament_target_dependencies(
   "Eigen3"
   "Pangolin"
 )
-target_link_libraries(dso_ros ${DSO_LIBRARY} ${PCL_LIBRARIES})
+target_link_libraries(dso_ros ${DSO_LIBRARY} ${PCL_LIBRARIES} Boost::system Boost::thread)
 
 add_executable(camera src/camera.cpp)
 target_include_directories(camera PUBLIC
@@ -71,8 +71,8 @@ install(TARGETS dso_ros camera
   EXPORT export_${PROJECT_NAME}
   DESTINATION lib/${PROJECT_NAME})
 
-install(DIRECTORY calibration
-  DESTINATION lib/${PROJECT_NAME})
+# install(DIRECTORY calibration
+#   DESTINATION lib/${PROJECT_NAME})
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)

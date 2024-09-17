@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="2">
-  <name>dso</name>
+  <name>dso_ros2</name>
   <version>0.0.0</version>
   <description>TODO: Package description</description>
   <maintainer email="20567087+goktug97@users.noreply.github.com">goktug</maintainer>

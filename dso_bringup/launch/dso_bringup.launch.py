@@ -10,11 +10,11 @@ from launch_ros.actions import Node
 def generate_launch_description():
     return LaunchDescription([
         Node(
-            package='dso',
+            package='dso_ros2',
             node_executable='camera',
             output='screen'),
         Node(
-            package='dso',
+            package='dso_ros2',
             node_executable='dso_ros',
             output='screen'),
     ])

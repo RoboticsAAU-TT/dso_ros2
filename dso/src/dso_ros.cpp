@@ -142,7 +142,7 @@ int main(int argc, char ** argv)
   };
 
   auto sub = node->create_subscription<sensor_msgs::msg::Image>(
-      topic, callback, rmw_qos_profile_default);
+      topic, rclcpp::QoS(rclcpp::QoSInitialization::from_rmw(rmw_qos_profile_default)), callback);
 
   rclcpp::spin(node);
   rclcpp::shutdown();
