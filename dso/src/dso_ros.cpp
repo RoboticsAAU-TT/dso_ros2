@@ -19,9 +19,9 @@
 #include "rclcpp/rclcpp.hpp"
 #include "sensor_msgs/msg/image.hpp"
 
-std::string calib = "./calibration/camera.txt";
-std::string vignetteFile = "./calibration/resized_vignette.png";
-std::string gammaFile = "./calibration/pcalib.txt";
+std::string calib = "./camera.txt";
+std::string vignetteFile = "./vignette.png";
+std::string gammaFile = "./pcalib.txt";
 
 using namespace dso;
 
@@ -106,7 +106,7 @@ int main(int argc, char ** argv)
 
 
 	printf("MODE WITH CALIBRATION, but without exposure times!\n");
-	setting_photometricCalibration = 2;
+	setting_photometricCalibration = 1;
 	setting_affineOptModeA = 0;
 	setting_affineOptModeB = 0;
 
