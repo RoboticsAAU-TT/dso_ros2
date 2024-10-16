@@ -37,7 +37,8 @@ add_definitions(${PCL_DEFINITIONS})
 set(DSO_PATH "${CMAKE_SOURCE_DIR}/../../../tools/dso")
 find_library(DSO_LIBRARY dso ${DSO_PATH}/build/lib)
 
-add_executable(dso_ros src/dso_ros.cpp)
+add_executable(dso_ros 
+  src/dso_ros.cpp)
 target_include_directories(dso_ros PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>
@@ -47,6 +48,7 @@ ament_target_dependencies(
   dso_ros
   "rclcpp"
   "sensor_msgs"
+  "geometry_msgs"
   "std_msgs"
   "OpenCV"
   "Boost"
@@ -63,6 +65,7 @@ ament_target_dependencies(
   camera
   "rclcpp"
   "sensor_msgs"
+  "geometry_msgs"
   "std_msgs"
   "OpenCV"
 )
