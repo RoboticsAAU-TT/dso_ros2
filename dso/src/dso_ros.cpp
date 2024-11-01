@@ -76,7 +76,7 @@ void vidCb(const sensor_msgs::msg::Image::SharedPtr msg)
 
 	MinimalImageB minImg((int)image.cols, (int)image.rows,(unsigned char*)image.data);
 	ImageAndExposure* undistImg = undistorter->undistort<unsigned char>(&minImg, 1,0, 1.0f);
-  undistImg->timestamp = static_cast<double>(msg->header.stamp.sec);
+  undistImg->timestamp = static_cast<double>(msg->header.stamp.sec) + static_cast<double>(msg->header.stamp.nanosec) * 1e-9;
 	fullSystem->addActiveFrame(undistImg, frameID);
 	frameID++;
 	delete undistImg;
