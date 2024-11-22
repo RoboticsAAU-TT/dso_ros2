@@ -34,7 +34,7 @@ include_directories(${PCL_INCLUDE_DIRS})
 link_directories(${PCL_LIBRARY_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 
-set(DSO_PATH "${CMAKE_SOURCE_DIR}/../../../tools/dso")
+set(DSO_PATH "${CMAKE_SOURCE_DIR}/../../../tools/build_dependencies/dso")
 find_library(DSO_LIBRARY dso ${DSO_PATH}/build/lib)
 
 add_executable(dso_ros 
